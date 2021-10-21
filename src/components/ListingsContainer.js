@@ -2,7 +2,7 @@ import React from "react";
 import ListingCard from "./ListingCard";
 
 function ListingsContainer({listing, handleDeleteListing}) {
-
+  const rendo = () => Math.floor(Math.random()*100000000)
   return (
     <main>
       <ul className="cards">
@@ -10,7 +10,7 @@ function ListingsContainer({listing, handleDeleteListing}) {
         <ListingCard 
           handleDeleteListing={handleDeleteListing}
           description={singleListing.description} 
-          key={singleListing.id}
+          key={rendo()}
           image={singleListing.image} 
           location={singleListing.location}
           singleListing={singleListing}
