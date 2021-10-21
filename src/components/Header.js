@@ -1,7 +1,10 @@
 import React from "react";
 import Search from "./Search";
+import SortActivator from "./SortActivator"
 
-function Header({handleSearch}) {
+
+
+function Header({handleSearch, handleSort}) {
   return (
     <header>
       <h1>
@@ -10,6 +13,7 @@ function Header({handleSearch}) {
         </span>
         gregslist
       </h1>
+      <SortActivator handleSort={handleSort}/>
       <Search handleSearch={handleSearch}/>
     </header>
   );

@@ -6,6 +6,7 @@ function App() {
 
   const [listing, setListing] = useState([])
   const [search, setSearch] = useState("")
+  const [sort, setSort] = useState(false)
 
   
   useEffect(() => {
@@ -29,18 +30,37 @@ function App() {
 
   const filteredResults = () => {
     if (search.length > 0) {
-      return listing.filter(singleListing => singleListing.description.includes(search))
+      return listing.filter(singleListing => singleListing.description.toLowerCase().includes(search.toLowerCase()))
     } else {
       return listing
     }
   }
 
+  const handleSort = () => {
+    setSort(!sort)
+  }
+
+  const sortedListings = () => {
+    if (sort) {
+      return [...filteredResults()].sort((a,b) => {
+        if (a.location < b.location) {
+          return -1
+        } else {
+          return 1
+        }
+      })
+    }
+    return filteredResults()
+  }
   
   return (
     <div className="app">
-      <Header handleSearch={handleSearch}/>
+      <Header 
+      handleSearch={handleSearch}
+      handleSort={handleSort}
+      />
       <ListingsContainer 
-      listing={filteredResults()} 
+      listing={sortedListings()} 
       handleDeleteListing={handleDeleteListing}
       />
     </div>
