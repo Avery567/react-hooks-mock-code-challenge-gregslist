@@ -1,12 +1,15 @@
 import React,  {useState, useEffect} from "react";
 import Header from "./Header";
 import ListingsContainer from "./ListingsContainer";
+import Form from "./Form";
+
 
 function App() {
 
   const [listing, setListing] = useState([])
   const [search, setSearch] = useState("")
   const [sort, setSort] = useState(false)
+  // const [addedListing, setAddedListing] = useState("")
 
   
   useEffect(() => {
@@ -52,6 +55,11 @@ function App() {
     }
     return filteredResults()
   }
+
+  const addListingToState = (listingInput) => {
+    const updatedListing = [listingInput, ...listing]
+    setListing(updatedListing)
+  }
   
   return (
     <div className="app">
@@ -59,6 +67,7 @@ function App() {
       handleSearch={handleSearch}
       handleSort={handleSort}
       />
+      <Form addListingToState={addListingToState}/>
       <ListingsContainer 
       listing={sortedListings()} 
       handleDeleteListing={handleDeleteListing}
