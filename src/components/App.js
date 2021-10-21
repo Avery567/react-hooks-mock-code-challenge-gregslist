@@ -7,6 +7,7 @@ function App() {
   const [listing, setListing] = useState([])
   const [search, setSearch] = useState("")
 
+  
   useEffect(() => {
     fetch("http://localhost:6001/listings")
     .then(r => r.json())
@@ -22,24 +23,24 @@ function App() {
       })
     }
 
-    const formInput = userText => {
-      setSearch(userText)
+  const handleSearch = (userInput) => {
+    setSearch(userInput)
+  }
+
+  const filteredResults = () => {
+    if (search.length > 0) {
+      return listing.filter(singleListing => singleListing.description.includes(search))
+    } else {
+      return listing
     }
-  
-    const filteredListings = () => {
-      if (search.length > 0) {
-        return listing.filter(singleListing => singleListing.description.toLowerCase().includes(search.toLowerCase()))
-      } else {
-        return listing
-      }
-    }
+  }
+
   
   return (
     <div className="app">
-      <Header formInput={formInput}/>
+      <Header handleSearch={handleSearch}/>
       <ListingsContainer 
-      listing={listing} 
-      listings={filteredListings()}
+      listing={filteredResults()} 
       handleDeleteListing={handleDeleteListing}
       />
     </div>
